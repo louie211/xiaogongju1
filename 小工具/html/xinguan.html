@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<meta name="viewport"content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/louie.css" rel="stylesheet" />
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<button class="mui-left mui-action-back mui-btn-link">
+				<span class="mui-icon mui-icon-left-nav"><span style="font-size: 20px">返回</span></span>
+			</button>
+		</header>
+		<div class="mui-content">
+			<div id="louie-head">
+				<div id="louie-title">新冠数据</div>
+				<div id="louie-text">
+					<a href="../index.html">
+						<svg width="20" height="20" viewBox="0 0 1000 1000"xmlns="http://www.w3.org/2000/svg">
+							<path fill="currentColor" d="M512 128L128 447.936V896h255.936V640H640v256h255.936V447.936z">
+							</path>
+						</svg>
+						返回首页
+					</a>
+				</div>
+			</div>
+			<div id="louie-body">
+				<div class="louie-title">新冠数据</div>
+				<div class="louie-text">
+					<br /><button id="huoqushuju" onclick="huoqushuju()">获取数据</button>
+					<div id="zhanweidiv"><br /><br /></div>
+					<div id="xinguanshuju"></div>
+					<div id="shuxing"></div>
+				</div>
+				<div id="foot">
+					这里有<a href="help/xinguan-help.html" target="_blank">使用说明</a>，你也可以<a href="bug.html" target="_blank">反馈问题</a>。
+				</div>
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			function huoqushuju() {
+				document.getElementById("xinguanshuju").innerHTML = `<span class="mui-spinner"></span>获取中...`;
+				var url = "https://api.vvhan.com/api/covid";
+				var request = new XMLHttpRequest();
+				request.open("get", url);
+				request.send(null);
+				request.onload = function() {
+					if (request.status == 200) {
+						var json = JSON.parse(request.responseText);
+						if (json.success == true) {
+							document.getElementById("huoqushuju").style.display = "none";
+							var xgsjnr =`<br>更新时间:${json.data[0].updatetime}<br>国家:${json.data[0].country}<br>省:${json.data[0].province}<br>城市:${json.data[0].city}<br>新增确诊:${json.data[0].now.sure_new_loc}<br>新增无症状:${json.data[0].now.sure_new_hid}<br>现有确诊:${json.data[0].now.sure_present}<br>历史确诊:${json.data[0].history.sure_cnt}<br>历史治愈:${json.data[0].history.cure_cnt}<br>历史死亡:${json.data[0].history.die_cnt}<br>高风险:${json.data[0].danger.high_risk}<br>中风险:${json.data[0].danger.medium_risk}<br>`;
+							for (var i = 1; i < json.data.length; i++) {
+								xgsjnr +=`<br>更新时间:${json.data[i].updatetime}<br>国家:${json.data[i].country}<br>省:${json.data[i].province}<br>城市:${json.data[i].city}<br>新增确诊:${json.data[i].now.sure_new_loc}<br>新增无症状:${json.data[i].now.sure_new_hid}<br>现有确诊:${json.data[i].now.sure_present}<br>历史确诊:${json.data[i].history.sure_cnt}<br>历史治愈:${json.data[i].history.cure_cnt}<br>历史死亡:${json.data[i].history.die_cnt}<br>高风险:${json.data[i].danger.high_risk}<br>中风险:${json.data[i].danger.medium_risk}<br>`;
+							}
+							document.getElementById("xinguanshuju").innerHTML = xgsjnr;
+							document.getElementById("shuxing").innerHTML = `<a id="xianshishuju"href="#zhanweidiv"></a>`;
+							document.getElementById("xianshishuju").click();
+							document.getElementById("shuxing").innerHTML = `<button id="huoqushuju"onclick="huoqushuju()">重新加载</button>`;
+						} else {
+							mui.toast("无法获取新冠数据");
+							document.getElementById("dizhi").innerHTML = "无法获取新冠数据";
+						}
+					} else {
+						mui.toast("无法获取新冠数据");
+						document.getElementById("dizhi").innerHTML = "无法获取新冠数据";
+					}
+				};
+			}
+		</script>
+	</body>
+</html>

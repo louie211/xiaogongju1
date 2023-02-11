@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+	<link href="css/app.css" rel="stylesheet"/>
+	<style>
+		button{
+			width: 32.49%;
+		}
+	</style>
+</head>
+<body>
+	<header class="mui-bar mui-bar-nav">
+		<h1 class="mui-title">小工具</h1>
+	</header>
+	<div class="mui-content">
+		<div id="home" class="mui-control-content mui-active">
+			<a href="html/2weima.html" target="_blank"><button>二维码生成</button></a>
+			<a href="html/tianqi.html" target="_blank"><button>看天气</button></a>
+			<a href="html/wenzi-yuyin.html" target="_blank"><button>文字转语音</button></a>
+			<a href="html/yiyan.html" target="_blank"><button>随机一言一句</button></a>
+			<a href="html/xingzuoyunshi.html" target="_blank"><button>星座运势</button></a>
+			<a href="html/xinguan.html" target="_blank"><button>新冠数据</button></a>
+			<a href="" target="_blank"><button></button></a>
+			<a href="" target="_blank"><button></button></a>
+			<a href="" target="_blank"><button></button></a>
+			<br>
+		</div>
+		
+		<div id="gear" class="mui-control-content">
+			<header class="mui-bar mui-bar-nav">
+				<h1 class="mui-title">设置</h1>
+			</header>
+			<ul class="mui-table-view">
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right">
+							Item 1
+						</a>
+					</li>
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right">
+							 Item 2
+						</a>
+					</li>
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right"href="#delete">
+							 Item 3
+						</a>
+					</li>
+				</ul>
+		</div>
+		<div id="delete" class="mui-popover mui-popover-action mui-popover-bottom" style="display: none;">
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<a href="" style="color: #FF3B30;">删除信息</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a href="" style="color: #FF3B30;">删除信息</a>
+				</li>
+			</ul>
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<a href=""><b>取消</b></a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<nav class="mui-bar mui-bar-tab">
+		<a class="mui-tab-item mui-active" href="#home">
+			<span class="mui-icon mui-icon-home"></span>
+			<span class="mui-tab-label">首页</span>
+		</a>
+		<a class="mui-tab-item" href="#gear">
+			<span class="mui-icon mui-icon-gear"></span>
+			<span class="mui-tab-label">设置</span>
+		</a>
+	</nav>
+    <script src="js/mui.min.js"></script>
+    <script type="text/javascript" charset="utf-8">
+      	mui.init({
+			swipeBack:true //启用右滑关闭功能
+		});
+    </script>
+</body>
+</html>
