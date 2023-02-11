@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<meta name="viewport"content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/louie.css" rel="stylesheet" />
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<button class="mui-left mui-action-back mui-btn-link">
+				<span class="mui-icon mui-icon-left-nav">
+					<span style="font-size: 20px">返回</span>
+				</span>
+			</button>
+		</header>
+		<div class="mui-content">
+			<div id="louie-head">
+				<div id="louie-title">随机一言一句</div>
+				<div id="louie-text">
+					<a href="javascript:yiyan()">
+						<svg width="20" height="20" viewBox="0 0 1000 1000"xmlns="http://www.w3.org/2000/svg">
+							<path fill="currentColor" d="M512 128L128 447.936V896h255.936V640H640v256h255.936V447.936z">
+							</path>
+						</svg>
+						返回首页
+					</a>
+				</div>
+			</div>
+			<div id="louie-body">
+				<div class="louie-title">一言一句</div>
+				<div class="louie-text">
+					<div id="neirong"></div>
+					<br>
+					<div id="yuan"></div>
+					<div id="zuozhe"></div>
+					<br><br><button onclick="yiyan()">再来一句</button>
+				</div>
+				<br><br><br>
+				<div id="foot">
+					这里有<a href="help/yiyan-help.html" target="_blank">使用说明</a>，你也可以<a href="bug.html"target="_blank">反馈问题</a>。
+				</div>
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			window.onload = function() {
+				yiyan();
+			};
+			function yiyan() {
+				var url = "https://api.vvhan.com/api/ian?type=json";
+				var request = new XMLHttpRequest();
+				request.open("get", url);
+				request.send(null);
+				request.onload = function() {
+					if (request.status == 200) {
+						var json = JSON.parse(request.responseText);
+						if (json.success == true) {
+							document.getElementById("neirong").innerHTML = `<br>${json.data.vhan}`;
+							document.getElementById("yuan").innerHTML = `来自：${json.data.source}`;
+							document.getElementById("zuozhe").innerHTML = `——${json.data.creator}`;
+						} else {
+							mui.toast("无法获取一言一句");
+							document.getElementById("dizhi").innerHTML = "无法获取一言一句";
+						}
+					} else {
+						mui.toast("无法获取一言一句");
+						document.getElementById("dizhi").innerHTML = "无法获取一言一句";
+					}
+				};
+			}
+		</script>
+	</body>
+</html>

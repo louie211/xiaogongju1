@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<meta name="viewport"content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/louie.css" rel="stylesheet" />
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<button class="mui-left mui-action-back mui-btn-link">
+				<span class="mui-icon mui-icon-left-nav"><span style="font-size: 20px">返回</span></span>
+			</button>
+		</header>
+		<div class="mui-content">
+			<div id="louie-head">
+				<div id="louie-title">文字转语音</div>
+				<div id="louie-text">
+					<a href="../index.html">
+						<svg width="20" height="20" viewBox="0 0 1000 1000"xmlns="http://www.w3.org/2000/svg">
+							<path fill="currentColor" d="M512 128L128 447.936V896h255.936V640H640v256h255.936V447.936z">
+							</path>
+						</svg>
+						返回首页
+					</a>
+				</div>
+			</div>
+			<div id="louie-body">
+				<div class="louie-title">文字转语音</div>
+				<div class="louie-text">
+					<br>
+					请输入文本：
+					<textarea id="wenben" placeholder="请输入文本"></textarea>
+					<br><br>
+					请选择声音：
+					<select id="louie-shengyin" size="1">
+						<option value="1">声音1</option>
+						<option value="2">声音2</option>
+						<option value="3">声音3</option>
+						<option value="4">声音4</option>
+						<option value="5">声音5</option>
+						<option value="6">声音6</option>
+					</select>
+					<span class="louie-zhushi">（点击选择声音）</span>
+					<br><br>
+					请选择语速：
+					<span class="louie-zhushi">正常</span>
+					<input id="yusu" type="range" min="1" max="10" value="1">
+					<span class="louie-zhushi">慢</span>
+					<br><br>
+					请选择语言：
+					<select id="louie-yuyan" size="1">
+						<option value="zh-CHS">汉语</option>
+						<option value="en">英语</option>
+					</select>
+					<span class="louie-zhushi">（点击选择语言）</span>
+					<br><br>
+					<button onclick="shengcheng()">生成</button>
+				</div>
+				<div id="jieguo">
+					<div class="louie-title">结果</div>
+					<div class="louie-text">
+						<br><audio id="yuyin" controls></audio><br>可以点击音频后的 三个点 保存音频。
+					</div>
+				</div>
+				<div id="foot">
+					这里有<a href="help/wenzi-yuyin-help.html" target="_blank">使用说明</a>，你也可以<a href="bug.html" target="_blank">反馈问题</a>。
+				</div>
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			document.getElementById("jieguo").style.display = "none";
+			function shengcheng() {
+				if (document.getElementById("wenben").value == "") {
+					mui.toast("你还没有输入");
+				} else{
+					document.getElementById("jieguo").style.display = "block"
+					document.getElementById("yuyin").src = "https://fanyi.sogou.com/reventondc/synthesis?text=" + escape(document.getElementById("wenben").value) + "&speed=" + document.getElementById("yusu").value + "&lang=" + document.getElementById("louie-yuyan").value + "&speaker=" + document.getElementById("louie-shengyin").value;
+				}
+			}
+		</script>
+	</body>
+</html>

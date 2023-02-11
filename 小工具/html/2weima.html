@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+ <html>
+ 	<head>
+ 		<meta charset="utf-8"/>
+ 		<title></title>
+ 		<meta name="viewport"
+ 			content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+ 		<link href="../css/mui.min.css"rel="stylesheet"/>
+ 		<link href="../css/louie.css"rel="stylesheet"/>
+ 	</head>
+ 	<body>
+ 		<header class="mui-bar mui-bar-nav">
+ 			<button class="mui-left mui-action-back mui-btn-link">
+ 				<span class="mui-icon mui-icon-left-nav"><span style="font-size: 20px">返回</span></span>
+ 			</button>
+ 		</header>
+ 		<div class="mui-content">
+ 			<div id="louie-head">
+ 				<div id="louie-title">二维码</div>
+ 				<div id="louie-text">
+ 					<a href="../index.html">
+ 						<svg width="20"height="20"viewBox="0 0 1000 1000"xmlns="http://www.w3.org/2000/svg">
+ 							<path fill="currentColor"d="M512 128L128 447.936V896h255.936V640H640v256h255.936V447.936z"></path>
+ 						</svg>
+ 						返回首页
+					</a>
+ 				</div>
+ 			</div>
+ 			<div id="louie-body">
+ 				<div class="louie-title">
+ 					&nbsp;
+ 					<svg fill="currentColor"width="20"height="20"viewBox="0 0 24 24"xmlns="http://www.w3.org/2000/svg">
+ 						<path d="M5,5H7V7H5V5M1,1H11V11H1V1M3,3V9H9V3H3M5,17H7V19H5V17M1,13H11V23H1V13M3,15V21H9V15H3M13,13H17V15H19V13H23V15H19V17H23V23H19V21H15V23H13V21H15V19H13V13M21,21V19H19V21H21M19,17H17V15H15V19H19V17M22.7,3.35L21.7,4.35L19.65,2.35L20.65,1.35C20.85,1.14 21.19,1.13 21.42,1.35L22.7,2.58C22.91,2.78 22.92,3.12 22.7,3.35M13,8.94L19.07,2.88L21.12,4.93L15.06,11H13V8.94Z">
+ 						</path>
+ 					</svg>
+ 					生成二维码
+ 				</div>
+ 				<div class="louie-text">
+ 					<br>请输入二维码内容：<br>
+					<textarea id="erweinr"placeholder="请输入二维码内容,如果是链接请加入 http:// 或 https://"></textarea>
+ 					<button onclick="shengcheng()">生成</button>
+ 				</div>
+ 				<div id="erweimadiv">
+ 					<div class="louie-title">你的二维码</div>
+ 					<div class="louie-text">
+ 						<br>
+						<img id="erweima"alt="网络错误"/>
+						<br>
+						<a id="baocunqr"href=""download="qr.png">
+						<button onclick="">保存</button></a>
+ 					</div>
+ 				</div>
+ 				<div id="foot">
+ 					这里有<a href="help/2weima-help.html"target="_blank">使用说明</a>，你也可以<a href="bug.html"target="_blank">反馈问题</a>。
+ 				</div>
+ 			</div>
+ 		</div>
+ 		<script src="../js/mui.min.js"></script>
+ 		<script type="text/javascript">
+ 			mui.init();
+ 			document.getElementById("erweimadiv").style.display = "none";
+ 			var url = "0";
+			function shengcheng() {
+				if (document.getElementById("erweinr").value == "") {
+					mui.toast("你还没有输入");
+				} else{
+					document.getElementById("erweimadiv").style.display = "block";
+					var url = "https://api.vvhan.com/api/qr?text="+escape(document.getElementById("erweinr").value);
+					document.getElementById("erweima").src = url;
+					document.getElementById("baocunqu").href = url;
+					
+				}
+			}
+ 		</script>
+ 	</body>
+ </html>

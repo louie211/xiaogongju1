@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<meta name="viewport"content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/louie.css" rel="stylesheet" />
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<button class="mui-left mui-action-back mui-btn-link">
+				<span class="mui-icon mui-icon-left-nav">
+					<span style="font-size: 20px">返回</span>
+				</span>
+			</button>
+			<h1 class="mui-title">星座运势</h1>
+		</header>
+		<div class="mui-content">
+			<div id="louie-head">
+				<div id="louie-title">星座运势</div>
+				<div id="louie-text">
+					<a href="../index.html">
+						<svg width="20" height="20" viewBox="0 0 1000 1000"xmlns="http://www.w3.org/2000/svg">
+							<path fill="currentColor" d="M512 128L128 447.936V896h255.936V640H640v256h255.936V447.936z">
+							</path>
+						</svg>
+						返回首页
+					</a>
+				</div>
+			</div>
+			<div id="louie-body">
+				<div class="louie-title">星座运势</div>
+				<div class="louie-text">
+					<br>
+					请选择星座：
+					<select id="louie-xingzuo" size="1">
+						<option value="aries">白羊座</option>
+						<option value="taurus">金牛座</option>
+						<option value="gemini">双子座</option>
+						<option value="cancer">巨蟹座</option>
+						<option value="leo">狮子座</option>
+						<option value="virgo">处女座</option>
+						<option value="libra">天秤座</option>
+						<option value="scorpio">天蝎座</option>
+						<option value="sagittarius">射手座</option>
+						<option value="capricorn">摩羯座</option>
+						<option value="aquarius">水瓶座</option>
+						<option value="pisces">双鱼座</option>
+					</select>
+					<span class="louie-zhushi">（点击选择星座）</span>
+					<br>
+					请选择运势：
+					<select id="louie-yunshi" size="1">
+						<option value="today">今日运势</option>
+						<option value="nextday">明日运势</option>
+						<option value="week">本周运势</option>
+						<option value="month">本月运势</option>
+						<option value="year">今年运势</option>
+						<option value="love">爱情运势</option>
+					</select>
+					<span class="louie-zhushi">（点击选择运势）</span>
+					<button onclick="yunshi()">查运势</button>
+				</div>
+				<div id="xingzuoyunshi">
+					<div class="louie-title">运势</div>
+					<div class="louie-text">
+						<div id="yunshi"></div>
+					</div>
+				</div>
+				<div id="foot">
+					这里有<a href="help/xingzuoyunshi.html" target="_blank">使用说明</a>，你也可以<a href="bug.html" target="_blank">反馈问题</a>。
+				</div>
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			document.getElementById("xingzuoyunshi").style.display = "none";
+			function yunshi() {
+				var url ="https://api.vvhan.com/api/horoscope?type=" + document.getElementById("louie-xingzuo").value + "&time=" + document.getElementById("louie-yunshi").value;
+				var request = new XMLHttpRequest();
+				request.open("get", url);
+				request.send(null);
+				request.onload = function() {
+					if (request.status == 200) {
+						var json = JSON.parse(request.responseText);
+						if (json.success == true) {
+							document.getElementById("xingzuoyunshi").style.display = "block";
+							document.getElementById("yunshi").innerHTML = `<br><h1 class="mui-title">${json.data.title}</h1><br><h4 class="mui-title">${json.data.time}</h4><br><br>运势：<br><ul><li>综合运势：${json.data.fortune.all}</li><li>爱情运势：${json.data.fortune.love}</li><li>学业工作：${json.data.fortune.work}</li><li>财富运势：${json.data.fortune.money}</li></ul>指数：<br><ul><li>健康指数：${json.data.index.health}</li><li>商谈指数：${json.data.index.discuss}</li></ul>幸运颜色：${json.data.luckycolor}<br>幸运数字：${json.data.luckynumber}<br>速配星座：${json.data.luckyconstellation}<br>短评：${json.data.shortcomment}<br>运势解析：<br><ul><li>综合运势：${json.data.fortunetext.all}</li><li>爱情运势：${json.data.fortunetext.love}</li><li>学业工作：${json.data.fortunetext.work}</li><li>财富运势：${json.data.fortunetext.money}</li><li>健康运势：${json.data.fortunetext.health}</li></ul>`;
+						} else {
+							mui.toast("无法获取运势信息");
+							document.getElementById("yunshi").innerHTML = "无法获取运势信息";
+						}
+					} else {
+						mui.toast("无法获取运势信息");
+						document.getElementById("yunshi").innerHTML = "无法获取运势信息";
+					}
+				};
+			}
+		</script>
+	</body>
+</html>
